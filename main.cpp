@@ -186,6 +186,8 @@ int main() {
     camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
     shaderProgram.Activate();
+    glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"),
+                camera.Position.x, camera.Position.y, camera.Position.z);
     camera.Matrix(shaderProgram, "camMatrix");
 
     glUniform1f(glGetUniformLocation(shaderProgram.ID, "scale"), -0.1f);
