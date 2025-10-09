@@ -1,7 +1,7 @@
 #include "../Header Files/Texture.h"
 #include "../Header Files/stb_image.h"
 
-Texture::Texture(const char *image, GLenum texType, GLenum slot, GLenum format,
+Texture::Texture(const char *image, GLenum texType, GLuint slot, GLenum format,
                  GLenum pixelType) {
   type = texType;
 
@@ -10,7 +10,8 @@ Texture::Texture(const char *image, GLenum texType, GLenum slot, GLenum format,
   unsigned char *bytes = stbi_load(image, &widthImg, &heightImg, &numColCh, 0);
 
   glGenTextures(1, &ID);
-  glActiveTexture(slot);
+  glActiveTexture(GL_TEXTURE0 + slot);
+  unit = slot;
   glBindTexture(texType, ID);
 
   glTexParameteri(texType, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
@@ -22,7 +23,24 @@ Texture::Texture(const char *image, GLenum texType, GLenum slot, GLenum format,
   // float flatColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
   // glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, flatColor);
 
-  format = (numColCh == 4) ? GL_RGBA : GL_RGB;
+  // format = (numColCh == 4) ? GL_RGBA : GL_RGB;
+
+  // TODO: Why am i still passing format? idk
+
+  switch (numColCh) {
+  case 1:
+    format = GL_RED;
+    break;
+  case 3:
+    format = GL_RGB;
+    break;
+  case 4:
+    format = GL_RGBA;
+    break;
+  default:
+    format = GL_RGBA;
+    break;
+  }
   glTexImage2D(texType, 0, format, widthImg, heightImg, 0, format, pixelType,
                bytes);
   glGenerateMipmap(texType);
@@ -38,7 +56,10 @@ void Texture::texUnit(Shader &shader, const char *uniform, GLuint unit) {
   glUniform1i(tex0Uni, unit);
 }
 
-void Texture::Bind() { glBindTexture(type, ID); }
+void Texture::Bind() {
+  glActiveTexture(GL_TEXTURE0 + unit);
+  glBindTexture(type, ID);
+}
 
 void Texture::Unbind() { glBindTexture(type, 0); }
 

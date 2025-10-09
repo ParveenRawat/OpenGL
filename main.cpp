@@ -27,55 +27,15 @@ const unsigned int width = 600;
 const unsigned int height = 600;
 
 // Vertices coordinates
-GLfloat vertices[] = {
-    //     COORDINATES     /        COLORS          /    TexCoord   / NORMALS //
-    -0.5f, 0.0f, 0.5f,  0.83f, 0.70f, 0.44f,
-    0.0f,  0.0f, 0.0f,  -1.0f, 0.0f, // Bottom side
-    -0.5f, 0.0f, -0.5f, 0.83f, 0.70f, 0.44f,
-    0.0f,  5.0f, 0.0f,  -1.0f, 0.0f, // Bottom side
-    0.5f,  0.0f, -0.5f, 0.83f, 0.70f, 0.44f,
-    5.0f,  5.0f, 0.0f,  -1.0f, 0.0f, // Bottom side
-    0.5f,  0.0f, 0.5f,  0.83f, 0.70f, 0.44f,
-    5.0f,  0.0f, 0.0f,  -1.0f, 0.0f, // Bottom side
-
-    -0.5f, 0.0f, 0.5f,  0.83f, 0.70f, 0.44f,
-    0.0f,  0.0f, -0.8f, 0.5f,  0.0f, // Left Side
-    -0.5f, 0.0f, -0.5f, 0.83f, 0.70f, 0.44f,
-    5.0f,  0.0f, -0.8f, 0.5f,  0.0f, // Left Side
-    0.0f,  0.8f, 0.0f,  0.92f, 0.86f, 0.76f,
-    2.5f,  5.0f, -0.8f, 0.5f,  0.0f, // Left Side
-
-    -0.5f, 0.0f, -0.5f, 0.83f, 0.70f, 0.44f,
-    5.0f,  0.0f, 0.0f,  0.5f,  -0.8f, // Non-facing side
-    0.5f,  0.0f, -0.5f, 0.83f, 0.70f, 0.44f,
-    0.0f,  0.0f, 0.0f,  0.5f,  -0.8f, // Non-facing side
-    0.0f,  0.8f, 0.0f,  0.92f, 0.86f, 0.76f,
-    2.5f,  5.0f, 0.0f,  0.5f,  -0.8f, // Non-facing side
-
-    0.5f,  0.0f, -0.5f, 0.83f, 0.70f, 0.44f,
-    0.0f,  0.0f, 0.8f,  0.5f,  0.0f, // Right side
-    0.5f,  0.0f, 0.5f,  0.83f, 0.70f, 0.44f,
-    5.0f,  0.0f, 0.8f,  0.5f,  0.0f, // Right side
-    0.0f,  0.8f, 0.0f,  0.92f, 0.86f, 0.76f,
-    2.5f,  5.0f, 0.8f,  0.5f,  0.0f, // Right side
-
-    0.5f,  0.0f, 0.5f,  0.83f, 0.70f, 0.44f,
-    5.0f,  0.0f, 0.0f,  0.5f,  0.8f, // Facing side
-    -0.5f, 0.0f, 0.5f,  0.83f, 0.70f, 0.44f,
-    0.0f,  0.0f, 0.0f,  0.5f,  0.8f, // Facing side
-    0.0f,  0.8f, 0.0f,  0.92f, 0.86f, 0.76f,
-    2.5f,  5.0f, 0.0f,  0.5f,  0.8f // Facing side
-};
+GLfloat vertices[] = { //     COORDINATES     /        COLORS        / TexCoord
+                       //     /       NORMALS     //
+    -1.0f, 0.0f, 1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+    -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+    1.0f,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+    1.0f,  0.0f, 1.0f,  0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
 
 // Indices for vertices order
-GLuint indices[] = {
-    0,  1,  2,  // Bottom side
-    0,  2,  3,  // Bottom side
-    4,  6,  5,  // Left side
-    7,  9,  8,  // Non-facing side
-    10, 12, 11, // Right side
-    13, 15, 14  // Facing side
-};
+GLuint indices[] = {0, 1, 2, 0, 2, 3};
 
 GLfloat lightVertices[] = {-0.1f, -0.1f, 0.1f,  -0.1f, -0.1f, -0.1f,
                            0.1f,  -0.1f, -0.1f, 0.1f,  -0.1f, 0.1f,
@@ -149,7 +109,7 @@ int main() {
   glm::mat4 lightModel = glm::mat4(1.0f);
   lightModel = glm::translate(lightModel, lightPos);
 
-  glm::vec3 pyramidPos = glm::vec3(-1.5f, -1.5f, -1.5f);
+  glm::vec3 pyramidPos = glm::vec3(0.0f, -1.0f, 0.0f);
   glm::mat4 pyramidModel = glm::mat4(1.0f);
   pyramidModel = glm::translate(pyramidModel, pyramidPos);
 
@@ -169,9 +129,13 @@ int main() {
 
   // GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
-  Texture brickTex("./resources/textures/brick.png", GL_TEXTURE_2D, GL_TEXTURE0,
-                   GL_RGBA, GL_UNSIGNED_BYTE);
-  brickTex.texUnit(shaderProgram, "tex0", 0);
+  Texture plankTex("./resources/textures/planks.png", GL_TEXTURE_2D, 0, GL_RGBA,
+                   GL_UNSIGNED_BYTE);
+  plankTex.texUnit(shaderProgram, "tex0", 0);
+
+  Texture plankSpec("./resources/textures/planksSpec.png", GL_TEXTURE_2D, 1,
+                    GL_RED, GL_UNSIGNED_BYTE);
+  plankSpec.texUnit(shaderProgram, "tex1", 1);
 
   glEnable(GL_DEPTH_TEST);
 
@@ -192,7 +156,8 @@ int main() {
 
     glUniform1f(glGetUniformLocation(shaderProgram.ID, "scale"), -0.1f);
 
-    brickTex.Bind();
+    plankTex.Bind();
+    plankSpec.Bind();
     VAO1.Bind();
 
     glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT,
@@ -212,7 +177,7 @@ int main() {
   VAO1.Delete();
   VBO1.Delete();
   EBO1.Delete();
-  brickTex.Delete();
+  plankTex.Delete();
   shaderProgram.Delete();
   glfwDestroyWindow(window);
   glfwTerminate();
