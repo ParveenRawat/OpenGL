@@ -23,18 +23,21 @@ Implements textured meshes, lighting, camera movement, and shader-based renderin
 - GLEW
 - GLM
 
-## Screenshots
-
-![image](./Screenshots/Screenshot_2025-10-10-01-07-15_1366x768.png)
-
-![image](./Screenshots/Screenshot_2025-10-09-18-04-30_1366x768.png)
-![image](./Screenshots/Screenshot_2025-10-05-21-06-45_1366x768.png)
-![image](./Screenshots/Screenshot_2025-10-09-13-26-38_1366x768.png)
-
 
 ```bash
 sudo pacman -S glfw-x11 glew glm mesa
 ```
+
+## Screenshots
+
+![image](./Screenshots/Screenshot_2025-10-05-18-28-21_1366x768.png)
+![image](./Screenshots/Screenshot_2025-10-05-21-06-45_1366x768.png)
+![image](./screenshots/screenshot_2025-10-05-21-06-45_1366x768.png)
+![image](./Screenshots/Screenshot_2025-10-09-13-28-01_1366x768.png)
+![image](./Screenshots/Screenshot_2025-10-10-00-21-35_1366x768.png)
+![image](./Screenshots/Screenshot_2025-10-10-01-07-15_1366x768.png)
+
+
 
 ## 6. Build Instructions
 
