@@ -28,25 +28,37 @@ GLuint lightIndices[] = {0, 1, 2, 0, 2, 3, 0, 4, 7, 0, 7, 3, 3, 7, 6, 3, 6, 2,
                          2, 6, 5, 2, 5, 1, 1, 5, 4, 1, 4, 0, 4, 5, 6, 4, 6, 7};
 
 int main() {
-  glfwInit();
+  glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+
+  if (!glfwInit()) {
+    std::cerr << "Failed to initialize GLFW" << std::endl;
+    return -1;
+  }
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   GLFWwindow *window = glfwCreateWindow(width, height, "MyApp", NULL, NULL);
+
   if (window == NULL) {
-    std::cout << "Failed to create GLFW MyApp" << std::endl;
+    std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
     return -1;
   }
+
   glfwMakeContextCurrent(window);
 
   glewExperimental = GL_TRUE;
-  if (glewInit() != GLEW_OK) {
-    std::cerr << "Failed to load glew" << std::endl;
+
+  GLenum err = glewInit();
+
+  if (err != GLEW_OK) {
+    std::cerr << glewGetErrorString(err) << std::endl;
     return -1;
   }
+
+  glGetError();
 
   glViewport(0, 0, width, height);
 
